@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="flex flex-col min-h-screen bg-darkblue w-full lg:w-1/3 xl:w-1/4 p-7 lg:p-4 xl:p-7 space-y-10 overflow-x-hidden"
+    class="flex flex-col min-h-screen bg-secondary w-full lg:w-1/3 xl:w-1/4 p-7 lg:p-4 xl:p-7 space-y-10 overflow-x-hidden"
   >
     <div class="relative flex justify-between mb-10">
       <button
