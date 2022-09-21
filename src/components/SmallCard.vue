@@ -7,8 +7,8 @@
       class="max-h-16"
     />
     <div class="flex justify-between space-x-5">
-      <p>20º&deg;30º</p>
-      <p class="text-gray-250">20º&deg;30º</p>
+      <p>20&deg;C</p>
+      <p class="text-gray-250">20&deg;C</p>
     </div>
   </div>
 </template>

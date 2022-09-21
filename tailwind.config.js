@@ -13,6 +13,7 @@ module.exports = {
           250: "#A09FB1",
           350: "#88869D",
         },
+        "gray-button": "#6d6f79",
       },
     },
   },
