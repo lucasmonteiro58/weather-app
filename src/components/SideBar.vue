@@ -1,6 +1,16 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import SearchLocation from "./SearchLocation.vue";
+import { useWeatherStore } from "../stores/weather";
+
+const weatherStore = useWeatherStore();
+
+const weather = computed(() => {
+  return weatherStore.weather;
+});
+const tempType = computed(() => {
+  return weatherStore.tempType;
+});
 
 const showSearch = ref(false);
 
@@ -48,16 +58,19 @@ function closeSearch() {
 
       <div class="flex flex-col items-center justify-between pt-1">
         <h1 class="text-gray-150 text-[144px] font-medium">
-          15<span class="text-5xl text-gray-250">&deg;C</span>
+          {{ weather?.temp
+          }}<span class="text-5xl text-gray-250">&deg;{{ tempType }}</span>
         </h1>
-        <h3 class="font-semibold text-4xl text-gray-250">Shower</h3>
+        <h3 class="font-semibold text-4xl text-gray-250">
+          {{ weather?.weather.description }}
+        </h3>
         <div
           class="flex flex-col items-center text-center text-gray-350 text-lg space-y-5"
         >
           <p>Today &bull; Fri 5 Jun</p>
           <p>
             <IconifyIcon class="inline" icon="ic:baseline-location-on" />
-            Helsinki
+            {{ weather?.city_name }}
           </p>
         </div>
       </div>

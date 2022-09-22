@@ -7,6 +7,7 @@
       20
       <span class="text-4xl font-normal">mph</span>
     </h2>
+    <slot></slot>
   </div>
 </template>
 
