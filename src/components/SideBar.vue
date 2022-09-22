@@ -2,14 +2,20 @@
 import { computed, ref } from "vue";
 import SearchLocation from "./SearchLocation.vue";
 import { useWeatherStore } from "../stores/weather";
+import { useConversorFarenheit } from "@/composables";
 
 const weatherStore = useWeatherStore();
 
 const weather = computed(() => {
   return weatherStore.weather;
 });
+
 const tempType = computed(() => {
   return weatherStore.tempType;
+});
+
+const isFarenheit = computed(() => {
+  return tempType.value === "F";
 });
 
 const showSearch = ref(false);
@@ -58,8 +64,10 @@ function closeSearch() {
 
       <div class="flex flex-col items-center justify-between pt-1">
         <h1 class="text-gray-150 text-[144px] font-medium">
-          {{ weather?.temp
-          }}<span class="text-5xl text-gray-250">&deg;{{ tempType }}</span>
+          {{
+            isFarenheit ? useConversorFarenheit(weather?.temp) : weather?.temp
+          }}
+          <span class="text-5xl text-gray-250">&deg;{{ tempType }}</span>
         </h1>
         <h3 class="font-semibold text-4xl text-gray-250">
           {{ weather?.weather.description }}

@@ -6,6 +6,10 @@ import { computed } from "vue";
 
 const weatherStore = useWeatherStore();
 
+const weather = computed(() => {
+  return weatherStore.weather;
+});
+
 const tempType = computed(() => {
   return weatherStore.tempType;
 });
@@ -52,18 +56,28 @@ const tempType = computed(() => {
       <div class="mt-8">
         <h3 class="text-2xl font-bold mb-5">Today's Highlights</h3>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center">
-          <LargeCard v-motion-pop>
+          <LargeCard
+            title="Wind status"
+            :val="weather?.wind_spd"
+            unit="m/s"
+            v-motion-pop
+          >
             <div class="flex justify-between space-x-5 items-center">
               <div
                 class="bg-gray-500 rounded-full w-[30px] h-[30px] flex justify-center items-center"
               >
-                <i class="fas fa-location-arrow"></i>
+                <IconifyIcon
+                  icon="ic:baseline-navigation"
+                  :style="{ transform: `rotate(${weather?.wind_dir}deg)` }"
+                />
               </div>
-              <p class="text-gray-150 text-sm">WSW</p>
+              <p class="text-gray-150 text-sm uppercase">
+                {{ weather?.wind_cdir_full }}
+              </p>
             </div>
           </LargeCard>
 
-          <LargeCard v-motion-pop>
+          <LargeCard title="Humidity" :val="weather?.rh" unit="%" v-motion-pop>
             <div class="self-stretch text-gray-250 text-xs space-y-1">
               <div class="flex justify-between space-x-5 items-center px-1">
                 <p>0</p>
@@ -71,15 +85,28 @@ const tempType = computed(() => {
                 <p>100</p>
               </div>
               <div class="w-full h-2 bg-gray-150 rounded-full overflow-hidden">
-                <div class="bg-[#FFEC65] h-2" style="width: '84%'"></div>
+                <div
+                  class="bg-[#FFEC65] h-2"
+                  :style="{ width: `${weather?.rh}%` }"
+                ></div>
               </div>
               <p class="text-right">%</p>
             </div>
           </LargeCard>
 
-          <LargeCard v-motion-pop />
+          <LargeCard
+            title="Visibility"
+            :val="weather?.vis"
+            unit="km"
+            v-motion-pop
+          />
 
-          <LargeCard v-motion-pop />
+          <LargeCard
+            title="Air Pressure"
+            :val="weather?.pres"
+            unit="mb"
+            v-motion-pop
+          />
         </div>
       </div>
     </div>
