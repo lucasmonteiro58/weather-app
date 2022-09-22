@@ -27,6 +27,18 @@ function openSearch() {
 function closeSearch() {
   showSearch.value = false;
 }
+
+function getUserLocation() {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+      weatherStore.getWeatherCoords(latitude, longitude);
+    },
+    (error) => {
+      console.log(error);
+    }
+  );
+}
 </script>
 
 <template>
@@ -47,6 +59,7 @@ function closeSearch() {
           Search for places
         </button>
         <button
+          @click="getUserLocation"
           class="static z-10 text bg-[#6d6f79] hover:bg-[#6d6f79]/70 text-gray-150 rounded-full shadow-md w-[40px] h-[40px] flex justify-center items-center"
         >
           <IconifyIcon icon="ic:baseline-gps-fixed" />
@@ -65,7 +78,9 @@ function closeSearch() {
       <div class="flex flex-col items-center justify-between pt-1">
         <h1 class="text-gray-150 text-[144px] font-medium">
           {{
-            isFarenheit ? useConversorFarenheit(weather?.temp) : weather?.temp
+            isFarenheit
+              ? useConversorFarenheit(weather?.temp)
+              : weather && Math.round(weather?.temp)
           }}
           <span class="text-5xl text-gray-250">&deg;{{ tempType }}</span>
         </h1>

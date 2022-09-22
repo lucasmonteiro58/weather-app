@@ -12,7 +12,7 @@ defineProps<{
   >
     <p>{{ title }}</p>
     <h2 class="text-6xl font-bold">
-      {{ val }}
+      {{ val && val.toFixed(1) }}
       <span class="text-4xl font-normal">{{ unit }}</span>
     </h2>
     <slot></slot>

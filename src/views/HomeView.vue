@@ -6,8 +6,20 @@ import { onMounted } from "vue";
 
 const weatherStore = useWeatherStore();
 
+function getUserLocation() {
+  navigator.geolocation.getCurrentPosition(
+    (position) => {
+      const { latitude, longitude } = position.coords;
+      weatherStore.getWeatherCoords(latitude, longitude);
+    },
+    () => {
+      weatherStore.getWeatherCity("New York");
+    }
+  );
+}
+
 onMounted(() => {
-  weatherStore.getWeatherCity("Fortaleza");
+  getUserLocation();
 });
 </script>
 

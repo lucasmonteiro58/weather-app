@@ -15,7 +15,7 @@ export const useWeatherStore = defineStore("weather", () => {
     weatherResponse.value = res;
   }
 
-  async function getWeatherLocation(lat: number, lon: number) {
+  async function getWeatherCoords(lat: number, lon: number) {
     const res = await getByLatLon(lat, lon);
     weatherResponse.value = res;
   }
@@ -28,7 +28,7 @@ export const useWeatherStore = defineStore("weather", () => {
     weather,
     weatherMinutely,
     getWeatherCity,
-    getWeatherLocation,
+    getWeatherCoords,
     tempType,
     changeTempType,
   };
