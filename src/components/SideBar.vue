@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import SearchLocation from "./SearchLocation.vue";
 import { useWeatherStore } from "../stores/weather";
-import { useConversorFarenheit } from "@/composables";
+import { useConversorFarenheit, formatDataName } from "@/composables";
 
 const weatherStore = useWeatherStore();
 
@@ -90,7 +90,7 @@ function getUserLocation() {
         <div
           class="flex flex-col items-center text-center text-gray-350 text-lg space-y-5"
         >
-          <p>Today &bull; Fri 5 Jun</p>
+          <p>{{ weather && formatDataName(weather?.ob_time) }}</p>
           <p>
             <IconifyIcon class="inline" icon="ic:baseline-location-on" />
             {{ weather?.city_name }}

@@ -50,11 +50,11 @@ const tempType = computed(() => {
       <div
         class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 my-5 gap-10 justify-center"
       >
-        <SmallCard :weather="listWeathers && listWeathers[0]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[1]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[2]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[3]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[4]" v-motion-pop />
+        <SmallCard :weather="listWeathers && listWeathers[10]" v-motion-pop />
+        <SmallCard :weather="listWeathers && listWeathers[21]" v-motion-pop />
+        <SmallCard :weather="listWeathers && listWeathers[31]" v-motion-pop />
+        <SmallCard :weather="listWeathers && listWeathers[41]" v-motion-pop />
+        <SmallCard :weather="listWeathers && listWeathers[51]" v-motion-pop />
       </div>
 
       <div class="mt-8">

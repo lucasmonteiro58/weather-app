@@ -2,6 +2,7 @@ export interface IWeather {
   lat: number;
   lon: number;
   sunrise: string;
+  datetime: string;
   sunset: string;
   timezone: string;
   source: string[];
