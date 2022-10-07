@@ -48,7 +48,7 @@ const tempType = computed(() => {
       </div>
 
       <div
-        class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 my-5 gap-10 justify-center"
+        class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-3 my-5 gap-10 justify-center"
       >
         <SmallCard
           v-for="weather in listWeathers"
