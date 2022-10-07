@@ -32,14 +32,14 @@ function getLocations() {
 }
 
 async function onSearch() {
-  await weatherStore.getWeatherCity(location.value).then(() => {
+  await weatherStore.getWeatherForecast(location.value).then(() => {
     pushLocationLocalStorage();
     closeSearch();
   });
 }
 
 async function getOnClickLocation(location: string) {
-  await weatherStore.getWeatherCity(location).then(() => {
+  await weatherStore.getWeatherForecast(location).then(() => {
     closeSearch();
   });
 }

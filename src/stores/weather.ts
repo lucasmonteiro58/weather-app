@@ -1,22 +1,20 @@
 import type { IWeatherResponse } from "./../interfaces/weather";
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { getByCity, getByLatLon } from "./../api";
+import { getForecast } from "./../api";
 
 export const useWeatherStore = defineStore("weather", () => {
   const weatherResponse = ref<IWeatherResponse>();
   const tempType = ref<"C" | "F">("C");
 
-  const weather = computed(() => weatherResponse.value?.data[0]);
-  const weatherMinutely = computed(() => weatherResponse.value?.minutely);
+  const weather = computed(() => weatherResponse.value?.current);
+  const forecast = computed(() => weatherResponse.value?.forecast.forecastday);
+  const location = computed(() => weatherResponse.value?.location);
 
-  async function getWeatherCity(city: string) {
-    const res = await getByCity(city);
-    weatherResponse.value = res;
-  }
+  const weatherMinutely = computed(() => weatherResponse.value?.forecast);
 
-  async function getWeatherCoords(lat: number, lon: number) {
-    const res = await getByLatLon(lat, lon);
+  async function getWeatherForecast(q: string) {
+    const res = await getForecast(q);
     weatherResponse.value = res;
   }
 
@@ -26,10 +24,11 @@ export const useWeatherStore = defineStore("weather", () => {
 
   return {
     weather,
+    forecast,
+    location,
     weatherMinutely,
-    getWeatherCity,
-    getWeatherCoords,
     tempType,
     changeTempType,
+    getWeatherForecast,
   };
 });

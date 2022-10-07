@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { IWeatherMinutely } from "@/interfaces/weather";
+import type { Forecastday } from "@/interfaces/weather";
 import { useWeatherStore } from "../stores/weather";
-import { useConversorFarenheit, formatData } from "@/composables";
+import { formatData } from "@/composables";
 import { computed } from "vue";
 
 const weatherStore = useWeatherStore();
 
 defineProps<{
-  weather: IWeatherMinutely | undefined;
+  weather: Forecastday | undefined;
 }>();
 
 const tempType = computed(() => {
@@ -21,15 +21,18 @@ const isFarenheit = computed(() => {
 
 <template>
   <div class="bg-secondary py-4 px-5 flex flex-col items-center space-y-4">
-    <p>{{ weather && formatData(weather?.timestamp_local) }}</p>
+    <p>{{ weather && formatData(weather?.date) }}</p>
     <img
-      src="@/assets/images/heavycloud.png"
+      :src="weather?.day.condition?.icon"
       alt="weather-icon"
       class="max-h-16"
     />
     <div class="flex justify-between space-x-5">
-      <p v-if="isFarenheit">{{ useConversorFarenheit(weather?.temp) }}&deg;F</p>
-      <p v-else>{{ weather?.temp }}&deg;C</p>
+      <p v-if="isFarenheit">{{ weather?.day.mintemp_f }} &deg;F</p>
+      <p v-else>{{ weather?.day.mintemp_c }}&deg;C</p>
+
+      <p v-if="isFarenheit">{{ weather?.day.maxtemp_f }}&deg;F</p>
+      <p v-else>{{ weather?.day.maxtemp_c }}&deg;C</p>
     </div>
   </div>
 </template>

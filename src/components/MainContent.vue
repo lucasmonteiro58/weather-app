@@ -11,7 +11,7 @@ const weather = computed(() => {
 });
 
 const listWeathers = computed(() => {
-  return weatherStore.weatherMinutely;
+  return weatherStore.forecast;
 });
 
 const tempType = computed(() => {
@@ -50,11 +50,12 @@ const tempType = computed(() => {
       <div
         class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 my-5 gap-10 justify-center"
       >
-        <SmallCard :weather="listWeathers && listWeathers[10]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[21]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[31]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[41]" v-motion-pop />
-        <SmallCard :weather="listWeathers && listWeathers[51]" v-motion-pop />
+        <SmallCard
+          v-for="weather in listWeathers"
+          :key="weather?.date_epoch"
+          :weather="weather"
+          v-motion-pop
+        />
       </div>
 
       <div class="mt-8">
@@ -62,7 +63,7 @@ const tempType = computed(() => {
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 justify-center">
           <LargeCard
             title="Wind status"
-            :val="weather?.wind_spd"
+            :val="weather?.wind_mph"
             unit="m/s"
             v-motion-pop
           >
@@ -72,16 +73,21 @@ const tempType = computed(() => {
               >
                 <IconifyIcon
                   icon="ic:baseline-navigation"
-                  :style="{ transform: `rotate(${weather?.wind_dir}deg)` }"
+                  :style="{ transform: `rotate(${weather?.wind_degree}deg)` }"
                 />
               </div>
               <p class="text-gray-150 text-sm uppercase">
-                {{ weather?.wind_cdir_full }}
+                {{ weather?.wind_dir }}
               </p>
             </div>
           </LargeCard>
 
-          <LargeCard title="Humidity" :val="weather?.rh" unit="%" v-motion-pop>
+          <LargeCard
+            title="Humidity"
+            :val="weather?.humidity"
+            unit="%"
+            v-motion-pop
+          >
             <div class="self-stretch text-gray-250 text-xs space-y-1">
               <div class="flex justify-between space-x-5 items-center px-1">
                 <p>0</p>
@@ -91,7 +97,7 @@ const tempType = computed(() => {
               <div class="w-full h-2 bg-gray-150 rounded-full overflow-hidden">
                 <div
                   class="bg-[#FFEC65] h-2"
-                  :style="{ width: `${weather?.rh}%` }"
+                  :style="{ width: `${weather?.humidity}%` }"
                 ></div>
               </div>
               <p class="text-right">%</p>
@@ -100,14 +106,14 @@ const tempType = computed(() => {
 
           <LargeCard
             title="Visibility"
-            :val="weather?.vis"
+            :val="weather?.vis_km"
             unit="km"
             v-motion-pop
           />
 
           <LargeCard
             title="Air Pressure"
-            :val="weather?.pres"
+            :val="weather?.pressure_mb"
             unit="mb"
             v-motion-pop
           />

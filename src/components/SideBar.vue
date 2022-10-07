@@ -2,12 +2,16 @@
 import { computed, ref } from "vue";
 import SearchLocation from "./SearchLocation.vue";
 import { useWeatherStore } from "../stores/weather";
-import { useConversorFarenheit, formatDataName } from "@/composables";
+import { formatDataName } from "@/composables";
 
 const weatherStore = useWeatherStore();
 
 const weather = computed(() => {
   return weatherStore.weather;
+});
+
+const location = computed(() => {
+  return weatherStore.location;
 });
 
 const tempType = computed(() => {
@@ -32,7 +36,7 @@ function getUserLocation() {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       const { latitude, longitude } = position.coords;
-      weatherStore.getWeatherCoords(latitude, longitude);
+      weatherStore.getWeatherForecast(`${latitude},${longitude}`);
     },
     (error) => {
       console.log(error);
@@ -72,28 +76,24 @@ function getUserLocation() {
           alt="bg"
           class="opacity-10 absolute max-w-52"
         />
-        <img src="@/assets/images/shower.png" alt="weather" class="max-h-48" />
+        <img :src="weather?.condition.icon" alt="weather" class="h-[120px]" />
       </div>
 
       <div class="flex flex-col items-center justify-between pt-1">
-        <h1 class="text-gray-150 text-[144px] font-medium">
-          {{
-            isFarenheit
-              ? useConversorFarenheit(weather?.temp)
-              : weather && Math.round(weather?.temp)
-          }}
+        <h1 class="text-gray-150 text-[100px] font-medium mb-8">
+          {{ isFarenheit ? weather?.temp_f : weather?.temp_c }}
           <span class="text-5xl text-gray-250">&deg;{{ tempType }}</span>
         </h1>
         <h3 class="font-semibold text-4xl text-gray-250">
-          {{ weather?.weather.description }}
+          {{ weather?.condition.text }}
         </h3>
         <div
           class="flex flex-col items-center text-center text-gray-350 text-lg space-y-5"
         >
-          <p>{{ weather && formatDataName(weather?.ob_time) }}</p>
+          <p>{{ weather && formatDataName(weather?.last_updated) }}</p>
           <p>
             <IconifyIcon class="inline" icon="ic:baseline-location-on" />
-            {{ weather?.city_name }}
+            {{ location?.name }}
           </p>
         </div>
       </div>

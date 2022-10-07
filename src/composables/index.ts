@@ -6,8 +6,8 @@ export function useConversorFarenheit(value: number | undefined) {
   } else return value;
 }
 
-export function formatData(data: string) {
-  return moment(data).format("LT");
+export function formatData(data: string | Date) {
+  return moment(data).format("DD/MM/YYYY");
 }
 
 export function formatDataName(data: string) {
