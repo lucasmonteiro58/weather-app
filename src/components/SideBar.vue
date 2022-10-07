@@ -80,11 +80,11 @@ function getUserLocation() {
       </div>
 
       <div class="flex flex-col items-center justify-between pt-1">
-        <h1 class="text-gray-150 text-[100px] font-medium mb-8">
+        <h1 class="text-gray-150 text-[100px] font-medium mb-8 truncate">
           {{ isFarenheit ? weather?.temp_f : weather?.temp_c }}
           <span class="text-5xl text-gray-250">&deg;{{ tempType }}</span>
         </h1>
-        <h3 class="font-semibold text-4xl text-gray-250">
+        <h3 class="font-semibold text-4xl text-gray-250 text-center">
           {{ weather?.condition.text }}
         </h3>
         <div
@@ -93,7 +93,8 @@ function getUserLocation() {
           <p>{{ weather && formatDataName(weather?.last_updated) }}</p>
           <p>
             <IconifyIcon class="inline" icon="ic:baseline-location-on" />
-            {{ location?.name }}
+            {{ location?.name }}, {{ location?.region }} -
+            {{ location?.country }}
           </p>
         </div>
       </div>
