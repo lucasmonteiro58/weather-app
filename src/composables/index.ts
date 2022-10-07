@@ -13,3 +13,7 @@ export function formatData(data: string | Date) {
 export function formatDataName(data: string) {
   return moment(data).format("LL");
 }
+
+export function replace64for128(url: string | undefined) {
+  return url?.replace("64x64", "128x128");
+}

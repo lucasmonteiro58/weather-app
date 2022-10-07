@@ -2,7 +2,7 @@
 import { computed, ref } from "vue";
 import SearchLocation from "./SearchLocation.vue";
 import { useWeatherStore } from "../stores/weather";
-import { formatDataName } from "@/composables";
+import { formatDataName, replace64for128 } from "@/composables";
 
 const weatherStore = useWeatherStore();
 
@@ -76,7 +76,11 @@ function getUserLocation() {
           alt="bg"
           class="opacity-10 absolute max-w-52"
         />
-        <img :src="weather?.condition.icon" alt="weather" class="h-[120px]" />
+        <img
+          :src="replace64for128(weather?.condition.icon)"
+          alt="weather"
+          class="h-[120px]"
+        />
       </div>
 
       <div class="flex flex-col items-center justify-between pt-1">
