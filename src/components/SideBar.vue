@@ -38,6 +38,10 @@ function getUserLocation() {
     }
   );
 }
+
+const isDay = computed(() => {
+  return weather.value?.localObsDateTime?.toString()?.includes("AM");
+});
 </script>
 
 <template>
@@ -72,7 +76,7 @@ function getUserLocation() {
           class="absolute opacity-10 max-w-52"
         />
         <img
-          :src="getWeatherIconUrl(weather?.weatherCode)"
+          :src="getWeatherIconUrl(weather?.weatherCode, isDay)"
           alt="weather"
           class="h-[120px] rounded-2xl"
         />

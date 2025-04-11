@@ -19,43 +19,59 @@ export function replace64for128(url: string | undefined) {
 }
 
 const iconMap = {
-  113: "wsymbol_0001_sunny.png", // Clear/Sunny
-  "116": "wsymbol_0002_sunny_intervals.png", // Partly Cloudy
-  119: "wsymbol_0003_cloudy.png", // Cloudy
-  122: "wsymbol_0004_black_low_cloud.png", // Overcast
-  176: "wsymbol_0009_light_rain_showers.png", // Patchy rain nearby
-  179: "wsymbol_0013_sleet_showers.png", // Patchy snow nearby
-  182: "wsymbol_0013_sleet_showers.png", // Patchy sleet nearby
-  185: "wsymbol_0017_freezing_drizzle.png", // Patchy freezing drizzle
-  200: "wsymbol_0024_thunderstorms.png", // Thundery outbreaks
-  227: "wsymbol_0019_snow_showers.png", // Blowing snow
-  230: "wsymbol_0019_snow_showers.png", // Blizzard
-  248: "wsymbol_0006_mist.png", // Mist
-  260: "wsymbol_0007_fog.png", // Freezing fog
-  263: "wsymbol_0009_light_rain_showers.png", // Patchy light drizzle
-  266: "wsymbol_0008_drizzle.png", // Light drizzle
-  281: "wsymbol_0017_freezing_drizzle.png", // Freezing drizzle
-  293: "wsymbol_0009_light_rain_showers.png", // Patchy light rain
-  296: "wsymbol_0008_drizzle.png", // Light rain
-  299: "wsymbol_0010_heavy_rain_showers.png", // Moderate rain at times
-  302: "wsymbol_0010_heavy_rain_showers.png", // Moderate rain
-  305: "wsymbol_0010_heavy_rain_showers.png", // Heavy rain at times
-  308: "wsymbol_0011_heavy_rain.png", // Heavy rain
-  353: "wsymbol_0009_light_rain_showers.png", // Light rain shower
-  356: "wsymbol_0010_heavy_rain_showers.png", // Moderate or heavy rain shower
-  359: "wsymbol_0011_heavy_rain.png", // Torrential rain shower
-  362: "wsymbol_0013_sleet_showers.png", // Light sleet showers
-  365: "wsymbol_0013_sleet_showers.png", // Moderate or heavy sleet showers
-  368: "wsymbol_0015_snow_showers.png", // Light snow showers
-  371: "wsymbol_0016_heavy_snow_showers.png", // Heavy snow showers
-  386: "wsymbol_0024_thunderstorms.png", // Patchy light rain with thunder
-  389: "wsymbol_0024_thunderstorms.png", // Moderate or heavy rain with thunder
-  392: "wsymbol_0025_thunderstorms_snow.png", // Patchy light snow with thunder
-  395: "wsymbol_0025_thunderstorms_snow.png", // Moderate or heavy snow with thunder
+  113: "01", // clear
+  116: "02", // partly cloudy
+  119: "03", // cloudy
+  122: "04", // overcast
+  143: "50", // mist
+  176: "09", // patchy rain
+  179: "13", // patchy snow
+  182: "13", // patchy sleet
+  185: "09", // freezing drizzle
+  200: "11", // thunder
+  227: "13", // blowing snow
+  230: "13", // blizzard
+  248: "50", // fog
+  260: "50", // freezing fog
+  263: "09", // patchy light drizzle
+  266: "09", // light drizzle
+  281: "09", // freezing drizzle
+  284: "09", // heavy freezing drizzle
+  293: "09", // patchy light rain
+  296: "10", // light rain
+  299: "10", // moderate rain
+  302: "10", // moderate rain
+  305: "10", // heavy rain
+  308: "10", // heavy rain
+  311: "09", // light freezing rain
+  314: "09", // heavy freezing rain
+  317: "13", // light sleet
+  320: "13", // heavy sleet
+  323: "13", // patchy light snow
+  326: "13", // light snow
+  329: "13", // moderate snow
+  332: "13", // moderate snow
+  335: "13", // heavy snow
+  338: "13", // heavy snow
+  350: "13", // ice pellets
+  353: "09", // light rain shower
+  356: "09", // heavy rain shower
+  359: "09", // torrential rain
+  362: "13", // light sleet shower
+  365: "13", // heavy sleet shower
+  368: "13", // light snow shower
+  371: "13", // heavy snow shower
+  374: "13", // light ice pellet showers
+  377: "13", // heavy ice pellet showers
+  386: "11", // patchy rain with thunder
+  389: "11", // thunder with rain
+  392: "11", // patchy snow with thunder
+  395: "11", // heavy snow with thunder
 };
 
-export function getWeatherIconUrl(code: any) {
-  const baseUrl = "https://assets.weatherstack.com/images/wsymbols01_png_64/";
+export function getWeatherIconUrl(code: any, isDay = true) {
+  const mapped = iconMap[code as keyof typeof iconMap] || "01";
+  const suffix = isDay ? "d" : "n";
 
-  return baseUrl + iconMap[code as keyof typeof iconMap];
+  return `https://openweathermap.org/img/wn/${mapped}${suffix}@2x.png`;
 }
