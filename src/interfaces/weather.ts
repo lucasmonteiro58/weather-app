@@ -1,75 +1,71 @@
 export interface IWeatherResponse {
-  current: Current;
-  forecast: Forecast;
-  location: Location;
+  current_condition: CurrentCondition[];
+  nearest_area: NearestArea[];
+  request: Request[];
+  weather: Weather[];
 }
 
-export interface Current {
-  cloud: number;
-  condition: Condition;
-  feelslike_c: number;
-  feelslike_f: number;
-  gust_kph: number;
-  gust_mph: number;
-  humidity: number;
-  is_day: number;
-  last_updated: string;
-  last_updated_epoch: number;
-  precip_in: number;
-  precip_mm: number;
-  pressure_in: number;
-  pressure_mb: number;
-  temp_c: number;
-  temp_f: number;
-  uv: number;
-  vis_km: number;
-  vis_miles: number;
-  wind_degree: number;
-  wind_dir: WindDir;
-  wind_kph: number;
-  wind_mph: number;
+export interface CurrentCondition {
+  FeelsLikeC: string;
+  FeelsLikeF: string;
+  cloudcover: string;
+  humidity: string;
+  localObsDateTime: string;
+  observation_time: string;
+  precipInches: string;
+  precipMM: string;
+  pressure: string;
+  pressureInches: string;
+  temp_C: string;
+  temp_F: string;
+  uvIndex: string;
+  visibility: string;
+  visibilityMiles: string;
+  weatherCode: string;
+  weatherDesc: WeatherDesc[];
+  weatherIconUrl: WeatherDesc[];
+  winddir16Point: string;
+  winddirDegree: string;
+  windspeedKmph: string;
+  windspeedMiles: string;
 }
 
-export interface Condition {
-  code: number;
-  icon: string;
-  text: Text;
+export interface WeatherDesc {
+  value: string;
 }
 
-export enum Text {
-  Clear = "Clear",
-  Cloudy = "Cloudy",
-  LightDrizzle = "Light drizzle",
-  ModerateRainAtTimes = "Moderate rain at times",
-  Overcast = "Overcast",
-  PartlyCloudy = "Partly cloudy",
-  PatchyRainPossible = "Patchy rain possible",
-  Sunny = "Sunny",
+export interface NearestArea {
+  areaName: WeatherDesc[];
+  country: WeatherDesc[];
+  latitude: string;
+  longitude: string;
+  population: string;
+  region: WeatherDesc[];
+  weatherUrl: WeatherDesc[];
 }
 
-export enum WindDir {
-  S = "S",
-  SSE = "SSE",
-  Ssw = "SSW",
-  Sw = "SW",
-  W = "W",
-  Wnw = "WNW",
-  Wsw = "WSW",
+export interface Request {
+  query: string;
+  type: string;
 }
 
-export interface Forecast {
-  forecastday: Forecastday[];
-}
-
-export interface Forecastday {
-  astro: Astro;
+export interface Weather {
+  id: string | number | symbol | undefined;
+  astronomy: Astronomy[];
+  avgtempC: string;
+  avgtempF: string;
   date: Date;
-  date_epoch: number;
-  day: Day;
-  hour: Hour[];
+  hourly: Hourly[];
+  maxtempC: string;
+  maxtempF: string;
+  mintempC: string;
+  mintempF: string;
+  sunHour: string;
+  totalSnow_cm: string;
+  uvIndex: string;
 }
 
-export interface Astro {
+export interface Astronomy {
   moon_illumination: string;
   moon_phase: string;
   moonrise: string;
@@ -78,71 +74,47 @@ export interface Astro {
   sunset: string;
 }
 
-export interface Day {
-  avghumidity: number;
-  avgtemp_c: number;
-  avgtemp_f: number;
-  avgvis_km: number;
-  avgvis_miles: number;
-  condition: Condition;
-  daily_chance_of_rain: number;
-  daily_chance_of_snow: number;
-  daily_will_it_rain: number;
-  daily_will_it_snow: number;
-  maxtemp_c: number;
-  maxtemp_f: number;
-  maxwind_kph: number;
-  maxwind_mph: number;
-  mintemp_c: number;
-  mintemp_f: number;
-  totalprecip_in: number;
-  totalprecip_mm: number;
-  uv: number;
-}
-
-export interface Hour {
-  chance_of_rain: number;
-  chance_of_snow: number;
-  cloud: number;
-  condition: Condition;
-  dewpoint_c: number;
-  dewpoint_f: number;
-  feelslike_c: number;
-  feelslike_f: number;
-  gust_kph: number;
-  gust_mph: number;
-  heatindex_c: number;
-  heatindex_f: number;
-  humidity: number;
-  is_day: number;
-  precip_in: number;
-  precip_mm: number;
-  pressure_in: number;
-  pressure_mb: number;
-  temp_c: number;
-  temp_f: number;
+export interface Hourly {
+  id: string | number | symbol | undefined;
+  DewPointC: string;
+  DewPointF: string;
+  FeelsLikeC: string;
+  FeelsLikeF: string;
+  HeatIndexC: string;
+  HeatIndexF: string;
+  WindChillC: string;
+  WindChillF: string;
+  WindGustKmph: string;
+  WindGustMiles: string;
+  chanceoffog: string;
+  chanceoffrost: string;
+  chanceofhightemp: string;
+  chanceofovercast: string;
+  chanceofrain: string;
+  chanceofremdry: string;
+  chanceofsnow: string;
+  chanceofsunshine: string;
+  chanceofthunder: string;
+  chanceofwindy: string;
+  cloudcover: string;
+  diffRad: string;
+  humidity: string;
+  precipInches: string;
+  precipMM: string;
+  pressure: string;
+  pressureInches: string;
+  shortRad: string;
+  tempC: string;
+  tempF: string;
   time: string;
-  time_epoch: number;
-  uv: number;
-  vis_km: number;
-  vis_miles: number;
-  will_it_rain: number;
-  will_it_snow: number;
-  wind_degree: number;
-  wind_dir: WindDir;
-  wind_kph: number;
-  wind_mph: number;
-  windchill_c: number;
-  windchill_f: number;
-}
-
-export interface Location {
-  country: string;
-  lat: number;
-  localtime: string;
-  localtime_epoch: number;
-  lon: number;
-  name: string;
-  region: string;
-  tz_id: string;
+  uvIndex: string;
+  visibility: string;
+  visibilityMiles: string;
+  weatherCode: string;
+  weatherDesc: WeatherDesc[];
+  weatherIconUrl: WeatherDesc[];
+  winddir16Point: string;
+  winddirDegree: string;
+  windspeedKmph: string;
+  windspeedMiles: string;
 }

@@ -9,11 +9,13 @@ export const useWeatherStore = defineStore("weather", () => {
 
   const loadingResponse = ref(false);
 
-  const weather = computed(() => weatherResponse.value?.current);
-  const forecast = computed(() => weatherResponse.value?.forecast.forecastday);
-  const location = computed(() => weatherResponse.value?.location);
+  const weather = computed(() => weatherResponse.value?.current_condition[0]);
+  const forecast = computed(() => weatherResponse.value?.weather);
+  const location = computed(() => weatherResponse.value?.nearest_area[0]);
 
-  const weatherMinutely = computed(() => weatherResponse.value?.forecast);
+  const weatherMinutely = computed(
+    () => weatherResponse.value?.weather[0].hourly
+  );
 
   async function getWeatherForecast(q: string) {
     loadingResponse.value = true;

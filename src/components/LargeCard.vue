@@ -1,18 +1,18 @@
 <script setup lang="ts">
 defineProps<{
   title: string;
-  val?: undefined | number;
+  val?: undefined | number | string;
   unit: string;
 }>();
 </script>
 
 <template>
   <div
-    class="bg-secondary py-7 px-10 flex flex-col items-center justify-between space-y-4"
+    class="flex flex-col items-center justify-between px-10 space-y-4 bg-secondary py-7"
   >
     <p>{{ title }}</p>
     <h2 class="text-6xl font-bold">
-      {{ val && val.toFixed(1) }}
+      {{ typeof val === "number" ? val.toFixed(1) : val }}
       <span class="text-4xl font-normal">{{ unit }}</span>
     </h2>
     <slot></slot>
